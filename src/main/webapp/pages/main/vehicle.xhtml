@@ -1,0 +1,121 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Responsive Form</title>
+	<!--Stylesheet-->
+	
+</h:head>
+
+<h:body >
+	<div class="container ui-g vh-100">
+		<h1>Vehículos</h1>
+		
+		<div class="p-field ui-g-12">
+			<h:form>
+
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<div class="ui-fluid p-formgrid p-grid">
+						<p:outputLabel for="license_plate_number" value="Matrícula" />
+						<p:inputText id="license_plate_number" value="#{vehicleBean.selectedVehicle.licenseplate}">
+						<f:validator validatorId="javax.faces.RegularExpression" />
+						<f:attribute name="pattern" value="[A-Z]\d{5}" />
+						<f:attribute name="message"
+							value="La matrícula debe comenzar con una letra seguida de cinco dígitos." />
+						</p:inputText>
+						
+					</div>
+				</div>
+
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<div class="ui-fluid p-formgrid p-grid">
+						<p:outputLabel for="brand" value="Modelo" />
+						<p:selectOneMenu id="brand" value="#{vehicleBean.selectedVehicle.brands}">
+						<f:selectItems value="#{formvehicle.brands}" var="brand" itemValue="brand" />
+						</p:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<div class="ui-fluid p-formgrid p-grid">
+						<p:outputLabel for="capacity_without_equipment" value="Capacidad sin equipaje" />
+						<p:inputNumber id="capacity_without_equipment" value="#{vehicleBean.selectedVehicle.capacity_without_equipment}" minValue="2" maxValue="40" />
+					</div>
+				</div>
+
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<div class="ui-fluid p-formgrid p-grid">
+						<p:outputLabel for="capacity_with_equipment" value="Capacidad con equipaje" />
+						<p:inputNumber id="capacity_with_equipment" value="#{vehicleBean.selectedVehicle.capacity_with_equipment}"  minValue="2" maxValue="30"/>
+					</div>
+				</div>
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<div class="ui-fluid p-formgrid p-grid">
+						<p:outputLabel for="total_capacity" value="Capacidad total" />
+						<p:inputNumber id="total_capacity" value="#{vehicleBean.selectedVehicle.total_capacity}"  minValue="2" maxValue="40"/>
+					</div>
+				</div>
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<div class="ui-fluid p-formgrid p-grid">
+						<p:outputLabel for="year_of_manufacture"
+							value="Año de fabricación" />
+						<p:selectOneMenu id="year_of_manufacture"
+							value="#{formvehicle.years}">
+							<f:selectItems value="#{formvehicle.years}" var="year" itemValue="year" />
+						</p:selectOneMenu>
+					</div>
+				</div>
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<div class="ui-fluid p-formgrid p-grid">
+						<p:outputLabel for="manufacturing_mode"
+							value="Modo de Fabricación" />
+						<p:inputText id="manufacturing_mode" value="#{vehicleBean.selectedVehicle.manufacturing_mode}" />
+					</div>
+				</div>
+				<div class="ui-g-12 ui-md-6 ui-lg-3">
+					<div class="ui-fluid p-formgrid p-grid">
+						<br />
+					
+						<p:commandButton value="Guardar" action="#{vehicleBean.saveVehicle}" />
+					</div>
+				</div>
+
+			</h:form>
+		</div>
+
+		<h1>Vehiculos Registrados</h1>
+		<p:dataTable id="dt-vehicles"  var="vehicle" value="#{vehicleBean.vehicles}" reflow="true"
+            
+            paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+             
+
+            <p:column headerText="Matricula" >
+                <h:outputText value="#{vehicle.licenseplate}" />
+            </p:column>
+            <p:column headerText="Modelo" >
+                <h:outputText value="#{vehicle.brands}" />
+            </p:column>
+            <p:column headerText="Capacidad sin equipaje">
+                <h:outputText value="#{vehicle.capacity_without_equipment}" />
+            </p:column>
+            <p:column headerText="Capacidad con equipaje">
+                <h:outputText value="#{vehicle.capacity_with_equipment}" style="font-weight: 700"/> 
+            </p:column>
+            <p:column headerText="Capacidad total" >
+                <h:outputText value="#{vehicle.total_capacity}" />
+            </p:column>
+            <p:column headerText="Año de Fabricación" >
+                <h:outputText value="#{vehicle.year_of_manufacture}"/>
+            </p:column>
+            <p:column headerText="Modo de fabricación" >
+                <h:outputText value="#{vehicle.manufacturing_mode}"/>
+            </p:column>
+            
+
+        </p:dataTable>
+	</div>
+</h:body>
+</html>
